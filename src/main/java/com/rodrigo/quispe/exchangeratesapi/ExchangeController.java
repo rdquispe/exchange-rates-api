@@ -15,16 +15,14 @@ import java.io.IOException;
 @RequestMapping
 public class ExchangeController {
 
-    private final String URL = "https://api.exchangerate.host/latest?base=USD";
+    private final OkHttpClient client = new OkHttpClient();
+    private final Gson gson = new Gson();
 
     @GetMapping(value = "/latest", produces = {"application/json"})
     public RatesResponse latestRates() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Gson gson = new Gson();
-
         Request request = new Request.Builder()
             .get()
-            .url(URL)
+            .url("https://api.exchangerate.host/latest?base=USD")
             .build();
 
         Response response = client.newCall(request).execute();
