@@ -36,6 +36,7 @@ public class ExchangeControllerTest {
     public void shouldSuccessExchangeLatestCall() throws Exception {
         HashMap<String, BigDecimal> rates = new HashMap<>();
         rates.put("BOB", BigDecimal.TEN);
+
         var response = new RatesResponse("USD", "2022", rates);
         Mockito.when(exchangeService.latestRates())
             .thenReturn(response);
