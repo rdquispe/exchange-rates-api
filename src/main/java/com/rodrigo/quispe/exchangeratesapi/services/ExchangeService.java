@@ -1,24 +1,20 @@
-package com.rodrigo.quispe.exchangeratesapi;
+package com.rodrigo.quispe.exchangeratesapi.services;
 
 import com.google.gson.Gson;
+import com.rodrigo.quispe.exchangeratesapi.responses.RatesResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-
-@RestController
-@RequestMapping
-public class ExchangeController {
+@Service
+public class ExchangeService {
 
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
 
-    @GetMapping(value = "/latest", produces = {"application/json"})
     public RatesResponse latestRates() throws IOException {
         Request request = new Request.Builder()
             .get()
