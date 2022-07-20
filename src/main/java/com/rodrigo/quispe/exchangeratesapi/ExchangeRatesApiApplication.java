@@ -9,5 +9,4 @@ public class ExchangeRatesApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ExchangeRatesApiApplication.class, args);
 	}
-
 }

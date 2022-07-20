@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  exchange-rates-api:
+    container_name: exchange-rates-api
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+
+  database:
+    image: postgres:12-alpine
+    container_name: database
+    environment:
+      - POSTGRES_USER=homestead
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=exchange_api
+    ports:
+      - "5432:5432"
