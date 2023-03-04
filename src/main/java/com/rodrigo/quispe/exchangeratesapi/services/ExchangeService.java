@@ -1,6 +1,7 @@
 package com.rodrigo.quispe.exchangeratesapi.services;
 
 import com.google.gson.Gson;
+import com.rodrigo.quispe.exchangeratesapi.exceptions.ApiException;
 import com.rodrigo.quispe.exchangeratesapi.responses.RatesResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,22 +19,31 @@ import java.util.Map;
 public class ExchangeService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final Gson gson = new Gson();
+
+    private final Gson gson;
+    private final OkHttpClient okHttpClient;
 
     @Autowired
-    private OkHttpClient okHttpClient;
+    public ExchangeService(OkHttpClient okHttpClient, Gson gson) {
+        this.okHttpClient = okHttpClient;
+        this.gson = gson;
+    }
 
-    public RatesResponse latestRates() throws IOException {
-        Response response = okHttpClient.newCall(getLatest()).execute();
-        RatesResponse ratesResponse = gson.fromJson(response.body().string(), RatesResponse.class);
-
-        logger.info(response.toString());
+    public RatesResponse latestRates() throws ApiException {
+        RatesResponse ratesResponse = null;
+        try {
+            Response response = okHttpClient.newCall(getLatest()).execute();
+            ratesResponse = gson.fromJson(response.body().string(), RatesResponse.class);
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+            throw new ApiException(ex);
+        }
 
         return ratesResponse;
     }
 
-    public Map exchange(String from, String to, double amount) {
-        Map responseMap = new HashMap<String, Object>();
+    public Map<String, Object> exchange(String from, String to, double amount) throws ApiException {
+        Map<String, Object> map = new HashMap<>();
 
         try {
             Response response = okHttpClient.newCall(getLatest()).execute();
@@ -41,13 +51,14 @@ public class ExchangeService {
             Double usd = amount / ratesResponse.rates.get(from);
             Double toCurrency = usd * ratesResponse.rates.get(to);
 
-            responseMap.put("USD", usd);
-            responseMap.put(to, toCurrency);
-        } catch (Exception ex) {
+            map.put("USD", usd);
+            map.put(to, toCurrency);
+        } catch (IOException ex) {
             logger.error(ex.getMessage());
+            throw new ApiException(ex);
         }
 
-        return responseMap;
+        return map;
     }
 
     private Request getLatest() {
