@@ -9,12 +9,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping
-public class PingController {
+public class HealthCheckController {
 
-    @GetMapping(value = "/ping", produces = {"application/json"})
+    @GetMapping(value = "/health-check", produces = {"application/json"})
     public Map<String, Object> ping() {
         Map<String, Object> pong = new HashMap<>();
-        pong.put("message", "pong");
+        pong.put("service", "up");
 
         return pong;
     }
