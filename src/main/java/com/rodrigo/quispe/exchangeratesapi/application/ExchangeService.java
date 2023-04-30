@@ -1,8 +1,8 @@
-package com.rodrigo.quispe.exchangeratesapi.services;
+package com.rodrigo.quispe.exchangeratesapi.application;
 
 import com.google.gson.Gson;
-import com.rodrigo.quispe.exchangeratesapi.exceptions.ApiException;
-import com.rodrigo.quispe.exchangeratesapi.responses.RatesResponse;
+import com.rodrigo.quispe.exchangeratesapi.infrastructure.exceptions.ApiException;
+import com.rodrigo.quispe.exchangeratesapi.domain.RatesResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ExchangeService {
+public class ExchangeService implements IExchangeService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -29,10 +29,10 @@ public class ExchangeService {
         this.gson = gson;
     }
 
+    @Override
     public RatesResponse latestRates() throws ApiException {
-        RatesResponse ratesResponse = null;
-        try {
-            Response response = okHttpClient.newCall(getLatest()).execute();
+        RatesResponse ratesResponse;
+        try (Response response = okHttpClient.newCall(getLatest()).execute()) {
             ratesResponse = gson.fromJson(response.body().string(), RatesResponse.class);
         } catch (IOException ex) {
             logger.error(ex.getMessage());
@@ -42,11 +42,11 @@ public class ExchangeService {
         return ratesResponse;
     }
 
+    @Override
     public Map<String, Object> exchange(String from, String to, double amount) throws ApiException {
         Map<String, Object> map = new HashMap<>();
 
-        try {
-            Response response = okHttpClient.newCall(getLatest()).execute();
+        try (Response response = okHttpClient.newCall(getLatest()).execute()) {
             RatesResponse ratesResponse = gson.fromJson(response.body().string(), RatesResponse.class);
             Double usd = amount / ratesResponse.rates.get(from);
             Double toCurrency = usd * ratesResponse.rates.get(to);

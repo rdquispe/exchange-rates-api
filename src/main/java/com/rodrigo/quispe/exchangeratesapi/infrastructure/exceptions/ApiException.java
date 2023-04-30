@@ -1,4 +1,4 @@
-package com.rodrigo.quispe.exchangeratesapi.exceptions;
+package com.rodrigo.quispe.exchangeratesapi.infrastructure.exceptions;
 
 public class ApiException extends Exception{
 
