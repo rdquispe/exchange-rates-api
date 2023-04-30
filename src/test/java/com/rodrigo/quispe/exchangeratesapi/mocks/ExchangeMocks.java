@@ -1,6 +1,6 @@
 package com.rodrigo.quispe.exchangeratesapi.mocks;
 
-import com.rodrigo.quispe.exchangeratesapi.responses.RatesResponse;
+import com.rodrigo.quispe.exchangeratesapi.domain.RatesResponse;
 
 import java.util.HashMap;
 import java.util.Map;

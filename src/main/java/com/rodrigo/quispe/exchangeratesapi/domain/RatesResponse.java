@@ -1,4 +1,4 @@
-package com.rodrigo.quispe.exchangeratesapi.responses;
+package com.rodrigo.quispe.exchangeratesapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,4 +1,4 @@
-package com.rodrigo.quispe.exchangeratesapi.configurations;
+package com.rodrigo.quispe.exchangeratesapi.infrastructure.configurations;
 
 import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
