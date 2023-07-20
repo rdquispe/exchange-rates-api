@@ -2,9 +2,10 @@ package com.rodrigo.quispe.exchangeratesapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class RatesResponse {
+public class RateResponse {
 
     @JsonProperty("base")
     public String base;
@@ -15,11 +16,11 @@ public class RatesResponse {
     @JsonProperty("rates")
     public Map<String, Double> rates;
 
-    public RatesResponse() {
+    public RateResponse() {
 
     }
 
-    public RatesResponse(String base, String date, Map<String, Double> rates) {
+    public RateResponse(String base, String date, Map<String, Double> rates) {
         this.base = base;
         this.date = date;
         this.rates = rates;

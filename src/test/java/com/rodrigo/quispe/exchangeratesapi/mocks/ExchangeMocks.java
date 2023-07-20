@@ -1,15 +1,12 @@
 package com.rodrigo.quispe.exchangeratesapi.mocks;
 
-import com.rodrigo.quispe.exchangeratesapi.domain.RatesResponse;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class ExchangeMocks {
 
-    public static RatesResponse exchangeBOB() {
-        Map<String, Double> rates = new HashMap<>();
-        rates.put("BOB", 10D);
-        return new RatesResponse("USD", "2023", rates);
+    public static String latestResponseOK() {
+        return "{\"base\": \"USD\",\"date\": \"2023-07-15\",\"rates\": {\"BOB\": 6.90}}";
+    }
+
+    public static String rateResponseOK() {
+        return "{ \"base\": \"USD\", \"date\": \"2023-07-15\", \"rates\": { \"BOB\": 6.904419, \"COP\": 4086, \"USD\": 1.0 } }";
     }
 }
