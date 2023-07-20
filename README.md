@@ -15,13 +15,13 @@ curl --request GET \
 Response
 ```
 {
-	"base": "USD",
-	"date": "2023-07-15",
-	"rates": {
-		"BOB": 6.904419,
-		"COP": 4086.899749,
-		"USD": 1.0
-	}
+    "base": "USD",
+    "date": "2023-07-15",
+    "rates": {
+	"BOB": 6.904419,
+	"COP": 4086.899749,
+        "USD": 1.0
+    }
 }
 ```
 
@@ -34,6 +34,6 @@ curl --request GET \
 Response
 ```
 {
-	"USD": 12234.212501110214
+    "USD": 12234.212501110214
 }
 ```
